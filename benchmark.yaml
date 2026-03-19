@@ -11,68 +11,57 @@ version: "0.1.0"
 software_backend: "conda"
 
 # Available software environments
-
 software_environments:
     conda_env:
-        name: nicely packaged environment
+        name: r
         description: A more verbose description, for humans reading this
-        conda: envs/conda.yaml
+        conda: envs/r.yaml
+    conda_env:
+        name: py
+        description: A more verbose description, for humans reading this
+        conda: envs/py.yaml
 
 # Stages and modules for your benchmark
 
 stages:
   - id: datasets
     outputs:
-        - id: data.matrix
-          path: "{dataset}.data.gz"
-        - id: data.true_labels
-          path: "{dataset}.gz"
+        - id: data.h5
+          path: "{dataset}.h5ad"
     modules:
       - id: dataset_loader
         name: "loads the benchmark datasets"
-        software_environment: "conda_env"
+        software_environment: "r"
         repository:
-          url: https://github.com/CHANGEME/data_loader
-          commit: 366c5a2
+          url: https://github.com/markrobinsonuzh/sc-io-dataloader
+          commit: main
         parameters:
             # A single parameter dict
-            - param1: "value"
-              param2: "other_value"
+            - dataset: "1.3m"
+              subset: [0.25, 0.50, 0.75, 1.0]
+              format: ["h5ad","mm","files"]
 
-            # A combinatorial grid expansion
-            - param1: "value"
-              param2: ["1", "2", "3"]
-
-  - id: methods
+  - id: reading
     inputs:
-        - data.matrix
-        - data.true_labels
+        - data.h5
     outputs:
-      - id: clustering.predicted
-        path: "{dataset}_predicted.labels.gz"
+      - id: reading.json
+        path: "{dataset}.json"
     modules:
-      - id: cool_method_1
+      - id: sc-io-reader-r
         name: "the only method you will ever need"
-        software_environment: "conda_env"
+        software_environment: "r"
         repository:
-          url: https://github.com/CHANGEME/my_method
-          commit: deadbeef
+          url: https://github.com/markrobinsonuzh/sc-io-reader-r
+          commit: main
         parameters:
           - param1: "value"
-
-  - id: metrics
-    inputs:
-        - clustering.predicted
-        - data.true_labels
-    outputs:
-      - id: metrics.scores
-        path: "{dataset}.scores.gz"
-    modules:
-      - id: strict_metric_1
-        name: "a very well defined metric"
-        software_environment: "conda_env"
+      - id: sc-io-reader-py
+        name: "the only method you will ever need"
+        software_environment: "py"
         repository:
-          url: https://github.com/CHANGEME/the_right_metric
-          commit: c0ffee
+          url: https://github.com/markrobinsonuzh/sc-io-reader-py
+          commit: main
         parameters:
-          - foo: "bar"
+          - seed: [1976, 2009, 2012]
+
