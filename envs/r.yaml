@@ -1,0 +1,11 @@
+name: sce-r45
+channels:
+  - conda-forge
+  - bioconda
+  - nodefaults
+
+dependencies:
+  - r-base=4.5
+  - bioconductor-singlecellexperiment
+  - bioconductor-tenxbraindata
+  - bioconductor-zellkonverter

@@ -26,42 +26,43 @@ software_environments:
 stages:
   - id: datasets
     outputs:
-        - id: data.h5
-          path: "{dataset}.h5ad"
+        - id: data.out
+          path: "{dataset}.out"
+        - id: data.format
+          path: "{dataset}.json"
     modules:
-      - id: dataset_loader
+      - id: dataloader
         name: "loads the benchmark datasets"
         software_environment: "r"
         repository:
           url: https://github.com/markrobinsonuzh/sc-io-dataloader
           commit: main
         parameters:
-            # A single parameter dict
             - dataset: "1.3m"
               subset: [0.25, 0.50, 0.75, 1.0]
               format: ["h5ad","mm","files"]
 
-  - id: reading
-    inputs:
-        - data.h5
-    outputs:
-      - id: reading.json
-        path: "{dataset}.json"
-    modules:
-      - id: sc-io-reader-r
-        name: "the only method you will ever need"
-        software_environment: "r"
-        repository:
-          url: https://github.com/markrobinsonuzh/sc-io-reader-r
-          commit: main
-        parameters:
-          - param1: "value"
-      - id: sc-io-reader-py
-        name: "the only method you will ever need"
-        software_environment: "py"
-        repository:
-          url: https://github.com/markrobinsonuzh/sc-io-reader-py
-          commit: main
-        parameters:
-          - seed: [1976, 2009, 2012]
+#  - id: reading
+#    inputs:
+#        - data.h5
+#    outputs:
+#      - id: reading.json
+#        path: "{dataset}.json"
+#    modules:
+#      - id: sc-io-reader-r
+#        name: "the only method you will ever need"
+#        software_environment: "r"
+#        repository:
+#          url: https://github.com/markrobinsonuzh/sc-io-reader-r
+#          commit: main
+#        parameters:
+#          - param1: "value"
+#      - id: sc-io-reader-py
+#        name: "the only method you will ever need"
+#        software_environment: "py"
+#        repository:
+#          url: https://github.com/markrobinsonuzh/sc-io-reader-py
+#          commit: main
+#        parameters:
+#          - seed: [1976, 2009, 2012]
 
