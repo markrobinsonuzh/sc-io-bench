@@ -12,14 +12,14 @@ software_backend: "conda"
 
 # Available software environments
 software_environments:
-    conda_env:
-        name: r
+    r:
+        name: r env
         description: A more verbose description, for humans reading this
         conda: envs/r.yaml
-    conda_env:
-        name: py
-        description: A more verbose description, for humans reading this
-        conda: envs/py.yaml
+#    py:
+#        name: py env
+#        description: A more verbose description, for humans reading this
+#        conda: envs/py.yaml
 
 # Stages and modules for your benchmark
 
