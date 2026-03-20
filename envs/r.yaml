@@ -9,3 +9,4 @@ dependencies:
   - bioconductor-singlecellexperiment
   - bioconductor-tenxbraindata
   - bioconductor-zellkonverter
+  - argparse

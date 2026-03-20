@@ -1,0 +1,37 @@
+Bootstrap: docker
+From: ubuntu:24.04
+
+%post
+    export DEBIAN_FRONTEND=noninteractive
+
+    apt-get update -qq
+    apt-get install -y --no-install-recommends \
+        python3 \
+        python3-venv \
+        python3-pip \
+        ca-certificates \
+        locales
+
+    locale-gen en_US.UTF-8
+    update-locale LANG=en_US.UTF-8
+
+    python3 -m venv /opt/venv
+    . /opt/venv/bin/activate
+    pip install --no-cache-dir --upgrade pip
+    pip install --no-cache-dir "scanpy[leiden]"
+
+    apt-get clean
+    rm -rf /var/lib/apt/lists/*
+
+%environment
+    export LANG=en_US.UTF-8
+    export LC_ALL=en_US.UTF-8
+    export PATH=/opt/venv/bin:$PATH
+    export PYTHONNOUSERSITE=1
+
+#%test
+#    python -c "import scanpy as sc; print(sc.__version__)"
+#
+#%runscript
+#    exec python "$@"
+
