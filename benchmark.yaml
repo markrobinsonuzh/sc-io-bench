@@ -36,11 +36,15 @@ stages:
         software_environment: "r"
         repository:
           url: https://github.com/markrobinsonuzh/sc-io-dataloader
+          #url: https://github.com/markrobinsonuzh/sc-io-dataloader
+          #url: /home/mark/projects/omb/sc-io-dataloader
           commit: main
         parameters:
             - dataset: "1.3m"
-              subset: [0.25, 0.50, 0.75, 1.0]
-              format: ["h5ad","mm","files"]
+              subset: [1.0]
+              format: ["h5ad"]
+              #subset: [0.25, 0.50, 0.75, 1.0]
+              #format: ["h5ad","mm","files"]
 
 #  - id: reading
 #    inputs:
