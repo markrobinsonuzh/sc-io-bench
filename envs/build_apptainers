@@ -1,0 +1,6 @@
+apptainer build r.sif r.def
+#apptainer exec r.sif /bin/bash
+
+apptainer build py.sif py.def
+#apptainer exec py.sif /bin/bash
+#apptainer exec py.sif python3 -c "import scanpy as sc; print(sc.__version__)"
