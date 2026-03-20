@@ -8,14 +8,14 @@ version: "0.1.0"
 
 # The default software environment for this benchmark.
 # One of: apptainer, conda, envmodules.
-software_backend: "conda"
+software_backend: "apptainer"
 
 # Available software environments
 software_environments:
     r:
-        name: r env
+        name: r apptainer env
         description: A more verbose description, for humans reading this
-        conda: envs/r.yaml
+        apptainer: envs/r.sif
 #    py:
 #        name: py env
 #        description: A more verbose description, for humans reading this
